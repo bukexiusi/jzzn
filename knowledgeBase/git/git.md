@@ -47,6 +47,13 @@ $ git add doc/你猜.docx
 $ git commit -m "备注信息"
 ```
 
+或
+
+```git
+$ git add .
+$ git commit -m "备注信息"
+```
+
 **tips**: git不能提交目录，只能提交文件
 
 ## 查看仓库新增和修改情况
@@ -184,6 +191,13 @@ $ git rm readme.txt
 
 ```git
 $ git clone git@github.com:bukexiusi/jzzn.git
+```
+
+### 推送和拉取代码（本地仓库与远程仓库代码同步）
+
+```git
+$ git push origin master
+$ git pull origin master
 ```
 
 ### 分支管理

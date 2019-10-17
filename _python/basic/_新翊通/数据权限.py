@@ -27,14 +27,15 @@ def get_db_data():
         host='localhost',
         port=3306,
         user='root',
-        password='930210',
-        db='clever-spiders-local',
+        password='root',
+        db='cs_siming',
         charset='utf8'
     )
     cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
     try:
         cursor.execute('select * from sys_role_data_authority')
         result = cursor.fetchall()
+        print(result)
         return result
     finally:
         cursor.close()

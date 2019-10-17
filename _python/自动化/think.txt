@@ -1,0 +1,368 @@
+多个class的 点击操作
+
+find_element_by_id()
+find_element_by_name()
+find_element_by_class_name()
+find_element_by_tag_name()
+find_element_by_link_text()
+find_element_by_partial_link_text()
+find_element_by_xpath()
+find_element_by_css_selector()
+
+
+清除元素内容：clear()
+模拟按键输入：send_keys()
+点击：click()
+提交表单：submit()
+
+
+send_keys(Keys.BACK_SPACE) #删除键（BackSpace）
+send_keys(Keys.SPACE) #空格键(Space)
+send_keys(Keys.TAB) #制表键(Tab)
+send_keys(Keys.ESCAPE) #回退键（Esc）
+send_keys(Keys.ENTER) #回车键（Enter）
+send_keys(Keys.CONTROL,‘a’) #全选（Ctrl+A）
+send_keys(Keys.CONTROL,‘c’) #复制（Ctrl+C）
+send_keys(Keys.CONTROL,‘x’) #剪切（Ctrl+X）
+send_keys(Keys.CONTROL,‘v’) #粘贴（Ctrl+V）
+send_keys(Keys.F1) #键盘 F1
+send_keys(Keys.F12) #键盘 F12
+
+browser.find_element_by_id('kw').send_key('zn') # 输入zn
+browser.find_element_by_id('kw').send_key(Keys.BACK_SPACE) # 输入<-
+browser.find_element_by_id('kw').send_key(Keys.SPACE) # 输入空格
+browser.find_element_by_id('kw').send_key(Keys.CONTROL, 'a') # 全选input框里的内容
+browser.find_element_by_id('kw').send_key(Keys.CONTROL, 'x') # 剪切input框里的内容
+browser.find_element_by_id('kw').send_key(Keys.CONTROL, 'v') # 复制到input框里
+browser.find_element_by_id('kw').send_key(Keys.ENTER) # 回车 ？？？ 既然是回车干嘛还要定位元素 ？？？
+
+select_by_index()  :通过索引定位
+select_by_value()  :通过value值定位
+select_by_visible_text() :通过文本值定位
+deselect_all()          :取消所有选项
+deselect_by_index()     :取消对应index选项
+deselect_by_value()      :取消对应value选项
+deselect_by_visible_text() :取消对应文本选项
+first_selected_option()  :返回第一个选项
+all_selected_options()   :返回所有的选项
+
+弹出框
+alert/confirm/prompt弹出框操作主要方法有：
+text：获取文本值
+accept() ：点击"确认"
+dismiss() ：点击"取消"或者叉掉对话框
+send_keys() ：输入文本值 --仅限于prompt,在alert和confirm上没有输入框
+
+alert框
+a = browser.switch_to.alert()
+a.text 获取alert框文本
+a.accept() 点击确认
+a.dismiss() 点击右上角X
+
+confirm框
+a = browser.switch_to.alert()
+a.text 获取alert框文本
+a.accept() 点击确认
+a.dismiss() 点击右上角X
+？？？点击取消
+
+prompt框
+a = browser.switch_to.alert()
+a.text 获取alert框文本
+a.accept() 点击确认
+a.dismiss() 点击右上角X
+？？？点击取消
+a.send_keys()
+
+
+
+1、滚动条回到顶部：
+js="var q=document.getElementById('id').scrollTop=0"
+driver.execute_script(js）
+或者
+js="var q=document.documentElement.scrollTop=0"
+driver.execute_script(js)
+2、滚动条拉到底部：
+js="var q=document.getElementById('id').scrollTop=10000"
+driver.execute_script(js)
+或者
+js="var q=document.documentElement.scrollTop=10000"
+driver.execute_script(js)
+3、滚动条拉到指定位置（具体元素）：
+target = driver.find_element_by_id("id_keypair")
+driver.execute_script("arguments[0].scrollIntoView();", target)
+4、通过模拟键盘DOWN（↓）来拖动：
+driver.find_element_by_id("id").send_keys(Keys.DOWN)
+
+
+from selenium import webdriver
+import time
+driver = webdriver.Firefox()
+driver.get("http://cd.tedu.cn/baidu-pp/dnpp1/?pz")
+time.sleep(3)
+js = 'document.getElementById("div_company_mini").style.display="none";' # 核心句子
+driver.execute_script(js)
+driver.quit()
+
+
+
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @File    : txt.py
+# @Software: PyCharm
+from selenium import webdriver
+import time
+
+
+# 打开test文件 文件读取
+file = open('C:\\Users\\Administrator\\Desktop\\test.txt')
+# 逐行读取整个文件内容
+lines = file.readlines()
+for i in lines:
+    # 每行处理
+file.close()
+
+# input框文件上传，非input框可能要借用autoit来实现
+url = 'http://www.cnblogs.com/sanzangTst/'
+browser = webdriver.Firefox()
+browser.get(url)
+browser.implicitly_wait(30)
+browser.find_element_by_link_text('新随笔').click()
+time.sleep(3)
+browser.find_element_by_css_selector('img.mceIcon').click()
+time.sleep(2)
+iframe = browser.find_element_by_tag_name('iframe')[1]
+browser.switch_to.frame(iframe)
+
+browser.find_element_by_name('file').send_keys(r"D:\test\xuexi\test\14.png"
+
+# 获取页面title
+title = browser.title
+# 获取文本s
+text = browser.find_element_by_id("zn").text
+# 获取元素标签
+tag = browser.find_element_by_id("zn").tag_name
+# 获取元素其他属性
+name = browser.find_element_by_id('zn').get_attribute('class')
+name = browser.find_element_by_id('zn').get_attribute('zn') # zn为自定义属性
+
+# 强制等待
+time.sleep(10)
+# 隐式等待，dom等待加载完
+driver.implicitly_wait(10)
+# 显式等待
+WebDriverWait(browser, 20, 0.5).until(EC.presence_of_element_located(By.ID, 'kw')) # 等待id等于kw的元素加载完
+
+显式等待的一些条件
+    text_to_be_present_in_element
+    text_to_be_present_in_element_value
+    #这个条件判断frame是否可切入，可传入locator元组或者直接传入定位方式：id、name、index或WebElement
+    frame_to_be_available_and_switch_to_it
+    # 这个条件判断是否有alert出现
+    alert_is_present
+    # 这个条件判断元素是否可点击，传入locator
+    element_to_be_clickable
+    # 这四个条件判断元素是否被选中，第一个条件传入WebElement对象，第二个传入locator元组
+    # 第三个传入WebElement对象以及状态，相等返回True，否则返回False
+    # 第四个传入locator以及状态，相等返回True，否则返回False
+    element_to_be_selected
+    element_located_to_be_selected
+    element_selection_state_to_be
+    element_located_selection_state_to_be
+    # 最后一个条件判断一个元素是否仍在DOM中，传入WebElement对象，可以判断页面是否刷新
+    staleness_of
+
+文本webdriver操作cookie（）的方法：
+get_cookie(): 获得所有cookie信息。
+get_cookie（name）：返回字典的key为name的cookie
+add_cookie(cookie_dict):添加cookie。“cookie_dict”指字典对象，必须有name和value值。
+delete_cookie(name,optionsString):删除cookie信息。“name”是要删除的cookie的名称。“optionsString”是该cookie的选项，目前支持的选项包括“路径”，“域”
+delete_all_cookies():删除所有cookie信息
+
+登录网站前写入cookie，能免登录
+driver.add_cookie({'name': 'username', 'value':"01124004"})
+driver.add_cookie({'name': 'password', 'value':"jz930210zn"})
+driver.get("http://...")
+
+用于cmd中运行
+if __name__ == "__main__":
+    unittest.main()
+
+
+
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+# 网易邮箱
+# 以yeah邮箱为例
+# ----------------发件相关参数----------------
+smtpserver = 'smtp.163.com'
+port = 0
+sender = 'sanzang520@yeah.net'
+password = 'xxxxxxxxxxxx'
+receicer = 'sanzang520@126.com'
+# ----------------编辑邮件内容----------------
+subject = '发送邮件测试'
+body = '<p>发送邮件测试Test<p>'
+msg = MIMEText(body, 'html', 'UTF-8')
+msg['from'] = sender
+msg['to'] = receicer
+msg['subject'] = subject
+# ------------------发送邮件-----------------
+smtp = smtplib.SMTP()
+smtp.connect(smtpserver)
+smtp.login(sender, password)
+smtp.sendmail(sender, receicer, msg.as_string())
+smtp.quit()
+
+
+
+# 以QQ邮箱为例
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+# ----------------发件相关参数----------------
+smtpserver = 'smtp.qq.com'
+port = 0
+sender = '2215358510@qq.com'
+password = '授权码'
+receicer = 'sanzang520@126.com'
+# ----------------编辑邮件内容----------------
+subject = '发送邮件测试'
+body = '<p>发送邮件测试Test<p>'
+msg = MIMEText(body, 'html', 'UTF-8')
+msg['from'] = sender
+msg['to'] = receicer
+msg['subject'] = subject
+# ------------------发送邮件-----------------
+smtp = smtplib.SMTP_SSL(smtpserver,port)
+smtp.login(sender, password)
+smtp.sendmail(sender, receicer, msg.as_string())
+smtp.quit()
+
+
+同时兼容网易和Q用try:
+数组 -> str: ";".join(数组)
+
+
+
+
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Author  : chen
+# @File    : c.py
+# @Software: PyCharm
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+# 同时兼容网易类和腾讯类邮箱
+# ----------------发件相关参数----------------
+smtpserver = 'smtp.qq.com'
+port = 0
+sender = '2215358510@qq.com'
+password = '授权码'
+receicer = ['sanzang520@126.com','sanzang520@yeah.net',]
+
+# ----------------编辑邮件内容----------------
+subject = '发送邮件测试'
+body = '<p>发送邮件测试Test<p>'
+msg = MIMEText(body, 'html', 'UTF-8')
+msg['from'] = sender
+msg['to'] = ';'.join(receicer)
+msg['subject'] = subject
+
+# 文字部分
+part = MIMEText('TEST!!!')
+msg.attach(part)
+# 附件部分
+#---xlsx类型附件---
+part = MIMEApplication(open('D:\\test.xlsx','rb').read())
+part.add_header('Content-Disposition', 'attachment', filename="test.xlsx")
+msg.attach(part)
+# jpg类型附件（png类型和jpg一样）
+part = MIMEApplication(open('D:\\test.jpg','rb').read())
+part.add_header('Content-Disposition', 'attachment', filename="test.jpg")
+msg.attach(part)
+# pdf类型附件
+part = MIMEApplication(open('D:\\test.pdf','rb').read())
+part.add_header('Content-Disposition', 'attachment', filename="test.pdf")
+msg.attach(part)
+# mp3类型附件
+part = MIMEApplication(open('D:\\test.mp3','rb').read())
+part.add_header('Content-Disposition', 'attachment', filename="test.mp3")
+msg.attach(part)
+# html类型
+part = MIMEText('<html><h1>test!</h1></html>','html','utf-8')
+msg.attach(part)
+
+# ------------------发送邮件-----------------
+try:
+    smtp = smtplib.SMTP()
+    smtp.connect(smtpserver)
+    smtp.login(sender, password)
+except:
+    smtp = smtplib.SMTP_SSL(smtpserver,port)
+    smtp.login(sender, password)
+smtp.sendmail(sender, receicer, msg.as_string())
+smtp.quit()
+
+Python当然也有不能干的事情，比如写操作系统，这个只能用C语言写；写手机应用，只能用Swift/Objective-C（针对iPhone）和Java（针对Android）；写3D游戏，最好用C或C++。
+CPython
+当我们从Python官方网站下载并安装好Python 3.x后，我们就直接获得了一个官方版本的解释器：CPython。这个解释器是用C语言开发的，所以叫CPython。在命令行下运行python就是启动CPython解释器。
+CPython是使用最广的Python解释器。教程的所有代码也都在CPython下执行。
+IPython
+IPython是基于CPython之上的一个交互式解释器，也就是说，IPython只是在交互方式上有所增强，但是执行Python代码的功能和CPython是完全一样的。好比很多国产浏览器虽然外观不同，但内核其实都是调用了IE。
+CPython用>>>作为提示符，而IPython用In [序号]:作为提示符。
+PyPy
+PyPy是另一个Python解释器，它的目标是执行速度。PyPy采用JIT技术，对Python代码进行动态编译（注意不是解释），所以可以显著提高Python代码的执行速度。
+绝大部分Python代码都可以在PyPy下运行，但是PyPy和CPython有一些是不同的，这就导致相同的Python代码在两种解释器下执行可能会有不同的结果。如果你的代码要放到PyPy下执行，就需要了解PyPy和CPython的不同点。
+Jython
+Jython是运行在Java平台上的Python解释器，可以直接把Python代码编译成Java字节码执行。
+IronPython
+IronPython和Jython类似，只不过IronPython是运行在微软.Net平台上的Python解释器，可以直接把Python代码编译成.Net的字节码
+
+
+
+function getHtml(win){
+  if (win.getSelection) {
+     var range=win.getSelection().getRangeAt(0);
+     var container = win.document.createElement('div');
+     container.appendChild(range.cloneContents());
+     return container.innerHTML;
+  }
+  else if (win.document.getSelection) {
+     var range=win.getSelection().getRangeAt(0);
+     var container = win.document.createElement('div');
+     container.appendChild(range.cloneContents());
+     return container.innerHTML;
+   }
+   else if (win.document.selection) {
+      return win.document.selection.createRange().htmlText;
+   }
+}
+
+
+定义默认参数要牢记一点：默认参数必须指向不变对象
+def add_end(L=[])
+    L.add("END")
+    return L
+L = []，[]为可变对象
+
+正确为
+def add_end(L=None):
+    if L is None:
+        L = []
+    L.append('END')
+    return L
+
+python函数
+def fucntion(必填参数, 默认参数, 可变参数, 命名关键字参数, 关键字参数)
+
+*args是可变参数，args接收的是一个tuple；
+**kw是关键字参数，kw接收的是一个dict
+
+凡是可作用于for循环的对象都是Iterable类型；
+凡是可作用于next()函数的对象都是Iterator类型，它们表示一个惰性计算的序列；

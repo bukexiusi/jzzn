@@ -1,0 +1,1 @@
+maven插件生成mybatis代码方法

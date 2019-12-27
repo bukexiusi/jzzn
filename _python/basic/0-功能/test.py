@@ -7,15 +7,10 @@
 @Description :
 '''
 
-print(1)
-print(2)
-print(1)
-print(2)
-print(1)
-print(2)
-print(1)
-print("草")
-for i in range(1000):
-    print(i)
-
+try:
+    import dbddd
+    print(1)
+except:
+    print(2)
+print(33*32*31*30*29*28/1/2/3/4/5/6*16)
 print("翊通执行完毕")

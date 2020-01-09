@@ -7,10 +7,5 @@
 @Description :
 '''
 
-try:
-    import dbddd
-    print(1)
-except:
-    print(2)
-print(33*32*31*30*29*28/1/2/3/4/5/6*16)
-print("翊通执行完毕")
+print(16384/14)
+print(1170*1170*16)

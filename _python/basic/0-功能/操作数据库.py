@@ -17,7 +17,7 @@ conn = pymysql.connect(
     db='clever-spiders-local',
     charset='utf8'
 )
-cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)
+cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)  # 返回字典类型数据
 try:
     cursor.execute('select * from sys_role_data_authority')
     result = cursor.fetchall()

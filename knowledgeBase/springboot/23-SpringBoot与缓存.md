@@ -47,6 +47,8 @@
 
 @**CacheEvict**
 
+==@CacheEvict通常配置在删除方法上==
+
 + allEntries
   + allEntries默认为false，当为true删除所有缓存
 + beforeInvocation

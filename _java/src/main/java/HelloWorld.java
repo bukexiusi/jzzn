@@ -27,8 +27,15 @@ public class HelloWorld {
     }
 
     public static void main(String[] args) {
-        int c = methodD();
-        System.out.println("Hello, world!");
+        Class a = int.class;
+        Class b = Integer.TYPE;
+        Class c = Integer.class;
+        System.out.println(System.identityHashCode(a));
+        System.out.println(System.identityHashCode(b));
+        System.out.println(System.identityHashCode(c));
+        System.out.println(a == b);
+        System.out.println(b == c);
+        System.out.println(a == c);
     }
 
 }
